@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>UI/DB</title>
+        <link rel="stylesheet" href="./style.css" type="text/css">
+    </head>
+    <body>
+        <!--New Workout Form-->
+        <div>
+            <form id="new-workout" method="POST" action="">
+                <fieldset>
+                    <legend>New Workout</legend>
+                    <label for="new-name">Name</label>
+                    <input id="new-name" type="text" name="name">
+                    <label for="new-reps">Reps</label>
+                    <input id="new-reps" type="number" name="reps">
+                    <label for="new-weight">Weight</label>
+                    <input id="new-weight" type="number" name="weight">
+                    <label for="new-date">Date</label>
+                    <input id="new-date" type="date" name="date">
+                    <label for="new-unit">Unit</label>
+                    <select id="new-unit" name="unit">
+                        <option value="lbs">lbs</option>
+                        <option value="kgs">kgs</option>
+                    </select>
+                    <input type="submit" value="Post">
+                </fieldset>
+            </form>
+        </div>
+        <!--Workouts Table-->
+        <div>
+            <h2>Workouts</h2>
+            <div id="workouts-table" style="display:table;width:100%;">
+                <div style="display:table-row;">
+                    <div id="id-header" style="display:table-cell;"><b>&nbsp;</b></div>
+                    <div id="name-header" style="display:table-cell;"><b>Name</b></div>
+                    <div id="reps-header" style="display:table-cell;"><b>Reps</b></div>
+                    <div id="weight-header" style="display:table-cell;"><b>Weight</b></div>
+                    <div id="date-header" style="display:table-cell;"><b>Date</b></div>
+                    <div id="unit-header" style="display:table-cell;"><b>Unit</b></div>
+                    <div id="update-header" style="display:table-cell;"><b>&nbsp;</b></div>
+                    <div id="delete-header" style="display:table-cell;"><b>&nbsp;</b></div>
+                </div>
+            </div>
+        </div>
+        <script src="./app.js"></script>
+    </body>
+</html>
