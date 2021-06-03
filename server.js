@@ -23,7 +23,7 @@ app.post('/',function(req,res,next){
                 return;
             }
             rows = rows.map(function(row){
-                var date = row.date.toISOString();
+                date = new Date(row.date).toISOString();
                 date = date.slice(0,date.indexOf('T'));
                 row.date = date;
                 return row;
@@ -107,5 +107,6 @@ app.get('/reset-table',function(req,res,next){
 });
 
 app.listen(app.get('port'),function(){
+    // console.log(`Visit http://flip3.engr.oregonstate.edu:${app.get('port')}`);
     console.log(`Visit http://localhost:${app.get('port')}`);
 });

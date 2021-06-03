@@ -6,14 +6,21 @@ function htmlPostCreate(){
     form.addEventListener('submit',function(e){
         e.preventDefault();
         var req = new XMLHttpRequest();
-        var name = document.getElementById('new-name').value;
+        var name = document.getElementById('new-name').value || null;
         var reps = document.getElementById('new-reps').value;
         var weight = document.getElementById('new-weight').value;
-        var date = document.getElementById('new-date').value;
+        var date = document.getElementById('new-date').value || new Date();
+        date = new Date(date).toISOString();
+        date = date.slice(0,date.indexOf('T'));
         var lbs = document.getElementById('new-unit').value === 'lbs' ? 1:0;
+        if(name === null){
+            clearForm();
+            return;
+        }
+        // var url = `http://flip3.engr.oregonstate.edu:3000/?query=create&name=${name}&reps=${reps}&weight=${weight}&date=${date}&lbs=${lbs}`;
         var url = `http://localhost:3000/?query=create&name=${name}&reps=${reps}&weight=${weight}&date=${date}&lbs=${lbs}`;
         req.onload = function(){
-            if(req.status == 200){
+            if(req.status === 200){
                 // Update HTML table with new workout after ok http request
                 var workout = {
                     id: req.responseText,
@@ -25,11 +32,7 @@ function htmlPostCreate(){
                 };
                 appendTableRow(workout);
                 // Clear create form
-                document.getElementById('new-name').value = null;
-                document.getElementById('new-reps').value = null;
-                document.getElementById('new-weight').value = null;
-                document.getElementById('new-date').value = null;
-                document.getElementById('new-unit').value = 'lbs';
+                clearForm();
             }
         }; 
         req.open('POST',url,true);
@@ -37,8 +40,17 @@ function htmlPostCreate(){
     });
 }
 
+function clearForm(){
+    document.getElementById('new-name').value = null;
+    document.getElementById('new-reps').value = null;
+    document.getElementById('new-weight').value = null;
+    document.getElementById('new-date').value = null;
+    document.getElementById('new-unit').value = 'lbs';
+}
+
 function htmlPostRead(){
     var req = new XMLHttpRequest();
+    // var url = 'http://flip3.engr.oregonstate.edu:3000/?query=read';
     var url = 'http://localhost:3000/?query=read';
     req.onload = function(){
         if(req.status === 200){
@@ -208,6 +220,7 @@ function htmlPostUpdate(workout){
     var weight = workout.weight;
     var date = workout.date;
     var lbs = workout.lbs;
+    // var url = `http://flip3.engr.oregonstate.edu:3000/?query=update&id=${id}&name=${name}&reps=${reps}&weight=${weight}&date=${date}&lbs=${lbs}`;
     var url = `http://localhost:3000/?query=update&id=${id}&name=${name}&reps=${reps}&weight=${weight}&date=${date}&lbs=${lbs}`;
     req.open('POST',url,true);
     req.send();
@@ -215,6 +228,7 @@ function htmlPostUpdate(workout){
 
 function htmlPostDelete(id){
     var req = new XMLHttpRequest();
+    // var url = `http://flip3.engr.oregonstate.edu:3000/?query=delete&id=${id}`;
     var url = `http://localhost:3000/?query=delete&id=${id}`;
     req.open('POST',url,true);
     req.send();
