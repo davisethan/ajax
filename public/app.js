@@ -3,7 +3,7 @@ function htmlPostCreate(){
     var form = document.getElementById('new-workout');
     
     // Add create form event listener
-    form.addEventListener('submit',function(e){
+    form.addEventListener('submit', function(e){
         e.preventDefault();
         var req = new XMLHttpRequest();
         var name = document.getElementById('new-name').value || null;
@@ -11,7 +11,7 @@ function htmlPostCreate(){
         var weight = document.getElementById('new-weight').value;
         var date = document.getElementById('new-date').value || new Date();
         date = new Date(date).toISOString();
-        date = date.slice(0,date.indexOf('T'));
+        date = date.slice(0, date.indexOf('T'));
         var lbs = document.getElementById('new-unit').value === 'lbs' ? 1:0;
         if(name === null){
             clearForm();
@@ -35,7 +35,7 @@ function htmlPostCreate(){
                 clearForm();
             }
         }; 
-        req.open('POST',url,true);
+        req.open('POST', url, true);
         req.send();
     });
 }
@@ -60,7 +60,7 @@ function htmlPostRead(){
             });
         }
     }
-    req.open('POST',url,true);
+    req.open('POST', url, true);
     req.send();
 }
 
@@ -175,7 +175,7 @@ function appendTableRow(workout){
     tableRow.appendChild(updateCell);
 
     // Add update event listener
-    updateInput.addEventListener('click',function(e){
+    updateInput.addEventListener('click', function(e){
         e.preventDefault();
         var workout = {
             id: idInput.value,
@@ -200,12 +200,12 @@ function appendTableRow(workout){
     tableRow.appendChild(deleteCell);
 
     // Add delete event listener
-    deleteInput.addEventListener('click',function(e){
+    deleteInput.addEventListener('click', function(e){
         e.preventDefault();
         // Client delete workout
-        var index = Array.from(table.children).reduce(function(acc,val,idx){
+        var index = Array.from(table.children).reduce(function(acc, val, idx){
             return val.id === `row-${idInput.value}` ? acc+idx:acc;
-        },0);
+        }, 0);
         table.removeChild(table.children[index]);
         // Server delete workout
         htmlPostDelete(idInput.value);
@@ -222,7 +222,7 @@ function htmlPostUpdate(workout){
     var lbs = workout.lbs;
     // var url = `http://flip3.engr.oregonstate.edu:3000/?query=update&id=${id}&name=${name}&reps=${reps}&weight=${weight}&date=${date}&lbs=${lbs}`;
     var url = `http://localhost:3000/?query=update&id=${id}&name=${name}&reps=${reps}&weight=${weight}&date=${date}&lbs=${lbs}`;
-    req.open('POST',url,true);
+    req.open('POST', url, true);
     req.send();
 }
 
@@ -230,7 +230,7 @@ function htmlPostDelete(id){
     var req = new XMLHttpRequest();
     // var url = `http://flip3.engr.oregonstate.edu:3000/?query=delete&id=${id}`;
     var url = `http://localhost:3000/?query=delete&id=${id}`;
-    req.open('POST',url,true);
+    req.open('POST', url, true);
     req.send();
 }
 
